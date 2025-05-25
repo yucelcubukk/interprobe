@@ -9,9 +9,19 @@ const pool = new Pool({
   port: process.env.DB_PORT,
 });
 
-// ✅ Bağlantıyı test et
-pool.connect()
-  .then(() => console.log("✅ PostgreSQL'e bağlantı başarılı"))
-  .catch(err => console.error("❌ PostgreSQL bağlantı hatası:", err.message));
+async function waitForDB() {
+  for (let i = 0; i < 10; i++) {
+    try {
+      await pool.query('SELECT 1');
+      console.log('✅ PostgreSQL bağlantısı kuruldu');
+      break;
+    } catch (err) {
+      console.log(`❌ Bağlantı denemesi ${i + 1} başarısız, tekrar deneniyor...`);
+      await new Promise(res => setTimeout(res, 2000));
+    }
+  }
+}
+
+waitForDB();
 
 module.exports = pool;

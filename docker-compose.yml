@@ -11,7 +11,7 @@ services:
     volumes:
       - db-data:/var/lib/postgresql/data
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
-    # Gerekirse portu açarsın ama frontend/backend ile konuştuğu sürece gerek yok:
+    # Dış dünyaya açmaya gerek yok
     # ports:
     #   - "5432:5432"
 
