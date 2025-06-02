@@ -10,7 +10,8 @@ services:
       POSTGRES_DB: portmanager
     volumes:
       - db-data:/var/lib/postgresql/data
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./init/full-portmanager.sql:/docker-entrypoint-initdb.d/init.sql
+
     ports:
       - "5432:5432"  # İstersen aç, PgAdmin gibi araçlarla bağlanmak için
 
